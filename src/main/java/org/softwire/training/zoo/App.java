@@ -1,19 +1,11 @@
 package org.softwire.training.zoo;
 
-import org.softwire.training.zoo.models.Animal;
-import org.softwire.training.zoo.models.Keeper;
-import org.softwire.training.zoo.models.LargeAnimal;
-import org.softwire.training.zoo.models.Lion;
-import org.softwire.training.zoo.models.Rabbit;
-import org.softwire.training.zoo.models.SmallAnimal;
-import org.softwire.training.zoo.models.Zebra;
-import org.softwire.training.zoo.services.FeedingScheduler;
-import org.softwire.training.zoo.services.GroomingScheduler;
+import org.softwire.training.zoo.models.*;
+import org.softwire.training.zoo.services.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class App {
@@ -23,8 +15,10 @@ public class App {
                 new Lion(LocalDate.of(2012, 5, 11)),
                 new Zebra(LocalDate.of(2008, 12, 1))
         );
-        List<SmallAnimal> smallAnimals = Collections.singletonList(
-                new Rabbit(LocalDate.of(2014, 1, 1))
+        List<SmallAnimal> smallAnimals = Arrays.asList(
+                new Rabbit(LocalDate.of(2014, 1, 1)),
+                new Dog(LocalDate.of(2015, 6, 8)),
+                new GuineaFowl(LocalDate.of(2016,8,8))
         );
         List<Animal> animals = new ArrayList<>();
         animals.addAll(largeAnimals);
@@ -40,9 +34,16 @@ public class App {
 
         FeedingScheduler feedingScheduler = FeedingScheduler.getInstance();
         GroomingScheduler groomingScheduler = GroomingScheduler.getInstance();
+        CleaningScheduler cleaningScheduler = CleaningScheduler.getInstance();
 
-        feedingScheduler.assignFeedingJobs(keepers);
-        groomingScheduler.assignGroomingJobs(keepers);
+        List<AbstractScheduler> schedulers = new ArrayList<>();
+
+        schedulers.add(feedingScheduler);
+        schedulers.add(groomingScheduler);
+        schedulers.add(cleaningScheduler);
+
+        SchedulerHelper.assignJobs(schedulers, keepers);
+
         animals.forEach(System.out::println);
     }
 }

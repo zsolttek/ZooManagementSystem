@@ -22,7 +22,12 @@ public class Keeper<T extends Animal> {
         animal.feed();
     }
 
+    public void clean(LargeAnimal animal) {
+        animal.clean();
+    }
+
     public List<T> getResponsibleAnimals() {
         return new ArrayList<>(animals);
     }
+
 }

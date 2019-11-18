@@ -5,7 +5,7 @@ import org.softwire.training.zoo.models.Keeper;
 
 import java.util.List;
 
-public class FeedingScheduler {
+public class FeedingScheduler extends AbstractScheduler {
     private static FeedingScheduler instance;
 
     private FeedingScheduler() {
@@ -18,7 +18,7 @@ public class FeedingScheduler {
         return instance;
     }
 
-    public void assignFeedingJobs(List<Keeper<? extends Animal>> keepers) {
+    public void assignJob(List<Keeper<? extends Animal>> keepers) {
         keepers.forEach(keeper -> keeper.getResponsibleAnimals().forEach(keeper::feed));
     }
 }

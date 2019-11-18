@@ -14,7 +14,7 @@ public class Rabbit extends AbstractAnimal implements SmallAnimal, CanBeGroomed 
 
     @Override
     public void feed() {
-        System.out.println("<Munch munch>");
+//        System.out.println("<Munch munch>");
         super.feed();
     }
 
